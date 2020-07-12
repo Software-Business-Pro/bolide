@@ -1,0 +1,21 @@
+<div class="main">
+  <div class="main-title">
+    <h1>Liste des machines</h1>
+  </div>
+  <div class="machines-container" *ngIf="!chargement">
+    <div *ngFor=" let machine of machines">
+      <a routerLink="/machine/{{ machine.iVehId }}">
+        <div class="machine-card">
+          <h3>{{machine.matLibelle}}</h3>
+          ref: {{machine.matRef}}
+        </div>
+      </a>
+    </div>
+  </div>
+</div>
+
+<div class="wrapper" *ngIf="chargement">
+  <div class="inner">
+    <mat-spinner [color]="'warn'" [mode]="'indeterminate'"></mat-spinner>
+  </div>
+</div>

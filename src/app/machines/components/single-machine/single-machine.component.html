@@ -1,0 +1,167 @@
+<div id="top-spacer" class="top-spacer"></div>
+<div class="wrapper" *ngIf="chargement">
+    <div class="inner">
+      <mat-spinner [color]="'warn'" [mode]="'indeterminate'"></mat-spinner>
+    </div>
+</div>
+<div *ngIf="!chargement">    
+    <h1>Caractéristiques de {{machine.matLibelle}}</h1>
+    <a routerLink="/machines"><span class="title">Retour</span></a>
+    <p>Référence : {{machine.matRef}}</p>
+    <p>Numero de serie : {{machine.matNumSerie}}</p>
+    <p>Categorie : {{machine.catProprietaire}}</p>
+    <p>Type : {{machine.cliRef}}</p>
+    <p>Immatriculation : {{machine.matImatriculation}}</p>
+    <p>Chauffeur : {{machine.matChauffeur}}</p>
+    <p>Telephone : {{machine.matChauffeurTel}}</p>
+    <p>Ville : {{machine.ville}} - {{machine.codePostal}}</p>
+    Caractéristiques du vehicule: 
+    <div>
+        <p>Hauteur : {{machine.matHauteur}} m</p>
+        <p>Largeur : {{machine.matLargeur}} m</p>
+        <p>Longueur : {{machine.matLongueur}} m</p>
+        <p>masse : {{machine.matPoids}} kg</p>
+        <p>PTAC : {{machine.matPTAC}} kg</p>
+    </div>
+    <p>Remarque : {{machine.remarque}}</p>
+    <h1>Galerie photo</h1>
+    <div>
+        <label class="image-upload-container btn btn-bwm">
+            <span>Uploader une image : </span>
+            <input #imageInput
+                type="file"
+                accept="image/*"
+                (change)="processFile(imageInput)">
+        </label>
+  
+  
+        <div *ngIf="selectedFile" class="img-preview-container">
+  
+        <div class="img-preview{{selectedFile.status === 'fail' ? '-error' : ''}}"
+            [ngStyle]="{'background-image': 'url('+ selectedFile.src + ')'}">
+        </div>
+  
+        <div *ngIf="selectedFile.pending" class="img-loading-overlay">
+            <div class="img-spinning-circle">
+                <mat-spinner [color]="'warn'" [mode]="'indeterminate'"></mat-spinner>
+            </div>
+        </div>
+  
+        <div *ngIf="selectedFile.status === 'ok'" class="alert alert-success"> L'image uploadé avec succes!</div>
+        <div *ngIf="selectedFile.status === 'fail'" class="alert alert-danger"> l'image n'a pas pu etre uploadé.</div>
+    </div>
+
+    <div *ngFor="let lien of lienImages">
+        <div class="gallery">
+            <a target="_blank" href="{{lien.lienImage}}">
+                <img src="{{lien.lienImage}}" width="600" height="400">
+            </a>
+            <div class="desc">Ajouté le {{lien.dateUpload | date:"dd/MM/yyyy HH:mm"}}</div>
+        </div>
+    </div>
+    
+    <hr style="opacity:0">
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <h1>Planning</h1>    
+    <br />
+    <div class="row text-center">
+        <div class="col-md-4">
+          <div class="btn-group">
+            <div
+              class="btn btn-primary"
+              mwlCalendarPreviousView
+              [view]="view"
+              [(viewDate)]="viewDate"
+              (viewDateChange)="closeOpenMonthViewDay()"
+            >
+              Previous
+            </div>
+            <div
+              class="btn btn-outline-secondary"
+              mwlCalendarToday
+              [(viewDate)]="viewDate"
+            >
+              Today
+            </div>
+            <div
+              class="btn btn-primary"
+              mwlCalendarNextView
+              [view]="view"
+              [(viewDate)]="viewDate"
+              (viewDateChange)="closeOpenMonthViewDay()"
+            >
+              Next
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <h3>{{ viewDate | calendarDate:(view + 'ViewTitle'):'en' }}</h3>
+        </div>
+        <div class="col-md-4">
+          <div class="btn-group">
+            <div
+              class="btn btn-primary"
+              (click)="setView(CalendarView.Month)"
+              [class.active]="view === CalendarView.Month"
+            >
+              Month
+            </div>
+            <div
+              class="btn btn-primary"
+              (click)="setView(CalendarView.Week)"
+              [class.active]="view === CalendarView.Week"
+            >
+              Week
+            </div>
+            <div
+              class="btn btn-primary"
+              (click)="setView(CalendarView.Day)"
+              [class.active]="view === CalendarView.Day"
+            >
+              Day
+            </div>
+          </div>
+        </div>
+      </div>
+      <br />
+      <div [ngSwitch]="view">
+        <mwl-calendar-month-view
+          *ngSwitchCase="CalendarView.Month"
+          [viewDate]="viewDate"
+          [events]="events"
+          [refresh]="refresh"
+          [activeDayIsOpen]="activeDayIsOpen"
+          (dayClicked)="dayClicked($event.day)"
+          (eventClicked)="handleEvent('Clicked', $event.event)"
+          (eventTimesChanged)="eventTimesChanged($event)"
+        >
+        </mwl-calendar-month-view>
+        <mwl-calendar-week-view
+          *ngSwitchCase="CalendarView.Week"
+          [viewDate]="viewDate"
+          [events]="events"
+          [refresh]="refresh"
+          (eventClicked)="handleEvent('Clicked', $event.event)"
+          (eventTimesChanged)="eventTimesChanged($event)"
+        >
+        </mwl-calendar-week-view>
+        <mwl-calendar-day-view
+          *ngSwitchCase="CalendarView.Day"
+          [viewDate]="viewDate"
+          [events]="events"
+          [refresh]="refresh"
+          (eventClicked)="handleEvent('Clicked', $event.event)"
+          (eventTimesChanged)="eventTimesChanged($event)"
+        >
+        </mwl-calendar-day-view>
+    </div>  
+</div>
+

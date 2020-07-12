@@ -1,0 +1,12 @@
+<div id="top-spacer" class="top-spacer"></div>
+<div class="map-container">
+  <div class="map-frame">
+    <div id="map"></div>
+  </div>
+</div>
+
+<div class="wrapper" *ngIf="chargement">
+  <div class="inner">
+    <mat-spinner [color]="'warn'" [mode]="'indeterminate'"></mat-spinner>
+  </div>
+</div>
