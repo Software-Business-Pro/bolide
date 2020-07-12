@@ -16,6 +16,24 @@ export class MapComponent implements OnInit {
   machines: Machine[] = [];
   chargement: boolean = false;
 
+  blueIcon = new L.Icon({
+    iconUrl: 'https://projet-annuel-esgi.s3.eu-west-3.amazonaws.com/marker-icon-2x-blue.png',
+    shadowUrl: 'https://projet-annuel-esgi.s3.eu-west-3.amazonaws.com/marker-shadow.png',
+    iconSize: [25, 41],
+    iconAnchor: [12, 41],
+    popupAnchor: [1, -34],
+    shadowSize: [41, 41]
+  });
+  
+  redIcon = new L.Icon({
+    iconUrl: 'https://projet-annuel-esgi.s3.eu-west-3.amazonaws.com/marker-icon-2x-red.png',
+    shadowUrl: 'https://projet-annuel-esgi.s3.eu-west-3.amazonaws.com/marker-shadow.png',
+    iconSize: [25, 41],
+    iconAnchor: [12, 41],
+    popupAnchor: [1, -34],
+    shadowSize: [41, 41]
+  });
+
   constructor(private machineService: MachineService) { }
 
   ngOnInit(): void {
@@ -39,7 +57,7 @@ export class MapComponent implements OnInit {
     });
     
     for(let machine of this.machines) {
-      L.marker([machine.dLocLati, machine.dLocLongi])
+      L.marker([machine.dLocLati, machine.dLocLongi], {icon: machine.isDisponible ? this.blueIcon : this.redIcon} )
       .bindPopup('Vehicule : ' + machine.matLibelle + '<br>Ref : '+ machine.matRef +
       '<br>Position : '+ machine.ville + ' - ' + machine.codePostal +
       '<br><a href="/machine/' + machine.iVehId +'">Detail</a>')

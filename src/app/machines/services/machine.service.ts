@@ -4,7 +4,6 @@ import {Machine} from "../models/machine";
 import axios from 'axios';
 import { parseStringPromise } from 'xml2js';
 import { Observable } from 'rxjs';
-import { promise } from 'protractor';
 
 @Injectable({
   providedIn: 'root'

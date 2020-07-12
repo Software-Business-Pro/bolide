@@ -3,8 +3,7 @@ export class Machine {
   dLocLongi: number;
   iVehId: number;
   ville: string;
-  codePostal: string;
-  
+  codePostal: string;  
   matRef: string;
   matLibelle: string;
   cliRef: string;
@@ -20,6 +19,7 @@ export class Machine {
   matPoids: string;
   remarque: string;
   matChauffeurTel: string;
+  isDisponible: boolean;
 
 
   constructor(iVehId: number, ville: string, dLocLati: number, dLocLongi: number) {
