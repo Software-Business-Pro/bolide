@@ -1,0 +1,8 @@
+{
+    "appService.zipIgnorePattern": [
+        "node_modules{,/**}",
+        ".vscode{,/**}"
+    ],
+    "appService.defaultWebAppToDeploy": "/subscriptions/00766a56-1251-46c5-9a4c-f0d4958c6eb4/resourceGroups/appsvc_linux_centralus/providers/Microsoft.Web/sites/Bolide",
+    "appService.deploySubpath": "dist\\bolide"
+}

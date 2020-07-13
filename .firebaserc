@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "bolide-esgi": {
+      "hosting": {
+        "bolide": [
+          "bolide-esgi"
+        ]
+      }
+    }
+  }
+}
