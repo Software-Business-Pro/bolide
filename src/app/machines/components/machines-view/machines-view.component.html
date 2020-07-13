@@ -2,10 +2,25 @@
   <div class="main-title">
     <h1>Liste des machines</h1>
   </div>
+  <input type="text" id="myInput" (change)="filter()" placeholder="Recherche de vehicule..." title="Recherche">
+  <p>Statut vehicule:</p>
+  <div>
+    <input type="radio" id="dispo1"
+     name="dispo" value="disp" (change)="filter()">
+    <label for="dispo1">Disponible</label>
+
+    <input type="radio" id="dispo2"
+     name="dispo" value="occ" (change)="filter()">
+    <label for="dispo2">Occupé</label>
+
+    <input type="radio" id="dispo3"
+    value="tout" name="dispo" checked (change)="filter()">
+    <label for="dispo3">Tout</label>
+  </div>
   <div class="machines-container" *ngIf="!chargement">
-    <div *ngFor=" let machine of machines">
+    <div *ngFor=" let machine of machines" id="myList">
       <a routerLink="/machine/{{ machine.iVehId }}">
-        <div class="machine-card">
+        <div class="{{machine.isDisponible? 'machine-card-dispo' : 'machine-card-res'}}">
           <h3>{{machine.matLibelle}}</h3>
           ref: {{machine.matRef}}
         </div>
